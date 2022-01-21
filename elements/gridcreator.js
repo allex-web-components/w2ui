@@ -60,8 +60,14 @@ function createGrid (execlib, applib) {
     this.data = data;
     if (lib.isArray(data)) {
       w2ui[this.id].add(data.map(w2uiDataer));
-      w2ui[this.id].refresh();
+      this.refresh();
     }
+  };
+  W2UIGridElement.prototype.refresh = function () {
+    w2ui[this.id].refresh();
+  };
+  W2UIGridElement.prototype.queueRefresh = function () {
+    lib.runNext(this.refresh.bind(this), 100);
   };
 
   function w2uiDataer(record, index) {
